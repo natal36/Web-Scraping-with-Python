@@ -1,0 +1,13 @@
+#Run this on your Windows command to fix your character encoding to mach the browser:  $chcp 65001
+
+from bs4 import BeautifulSoup
+import requests
+
+headers = {'User-Agent': 'Mozilla/5.0'}
+response = requests.get("http://www.amazon.com/s/?", headers = headers)
+soup = BeautifulSoup(response.text, "html.parser")
+
+results = soup.find_all('div', {'class': 's-item-container'})
+
+for result in results:
+print(result.find('h2').get_text())
